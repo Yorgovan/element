@@ -46,6 +46,7 @@
         :key="index"
         :class="{'highlighted': highlightedIndex === index}"
         @click="select(item)"
+        @click.native.middle="select(item)"
         :id="`${id}-item-${index}`"
         role="option"
         :aria-selected="highlightedIndex === index"
@@ -191,11 +192,12 @@
           e.preventDefault();
           this.select(this.suggestions[this.highlightedIndex]);
         } else if (this.selectWhenUnmatched) {
-          this.$emit('select', {value: this.value});
-          this.$nextTick(_ => {
-            this.suggestions = [];
-            this.highlightedIndex = -1;
-          });
+          this.select(this.suggestions[1]);
+          // this.$emit('select', {value: this.value});
+          // this.$nextTick(_ => {
+          //   this.suggestions = [];
+          //   this.highlightedIndex = -1;
+          // });
         }
       },
       select(item) {
